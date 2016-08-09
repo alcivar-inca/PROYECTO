@@ -92,6 +92,8 @@ def main():
     limite_Pantalla_X=0
     limite_Jugador_X=10
     limite_Jugador_Y=420
+    sonido_1 = pygame.mixer.music.load("inicio_juego.mp3") #sonido de fondo de juego primer nivel 
+    sonido_1 = pygame.mixer.music.play(1)
 
     player1=Player() # Instanciamos un objeto de clase  Player
     
@@ -135,13 +137,20 @@ def main():
                     if izq_apretada:movimiento_X=-velocidad_X
                     else:movimiento_X=0
                 if evento.key== pygame.K_UP:
-                	arriba_apretada=False
-                	if abajo_apretada:movimiento_Y=velocidad_Y
-                	else:movimiento_Y=-0
+                    arriba_apretada=False
+                    if abajo_apretada:movimiento_Y=velocidad_Y
+                    else:movimiento_Y=-0
                 if evento.key == pygame.K_DOWN:
-                	abajo_apretada=False
-                	if arriba_apretada:movimiento_Y=-velocidad_Y
-                	else:movimiento_Y=0 
+                    abajo_apretada=False
+                    if arriba_apretada:movimiento_Y=-velocidad_Y
+                    else:movimiento_Y=0 
+
+                '''if evento.key == pygame.K_SPACE:
+                    for i in range (movimiento_X, 1280, 15):
+                        pantalla.blit(bala1, [90+i, Y+22])
+                else:
+                    for i in range (movimiento_X, 0, -15):
+                        pantalla.blit(bala1, [i, Y+22])'''
                     
                          
         reloj.tick(25)# 25 fps
@@ -156,7 +165,7 @@ def main():
         fondo.actualizar(pantalla, movimiento_X)
         # actualizar jugador
         player1.actualizar(pantalla,movimiento_X,movimiento_Y,t, limite_Jugador_X, limite_Jugador_Y)
-        print limite_Jugador_X , limite_Jugador_Y
+        print (limite_Jugador_X , limite_Jugador_Y)
         #actualizar pantalla
         pygame.display.update()
 
