@@ -92,6 +92,8 @@ def main():
     limite_Pantalla_X=0
     limite_Jugador_X=10
     limite_Jugador_Y=420
+    sonido_1 = pygame.mixer.music.load("musica_Juego.mp3") #sonido de fondo de juego primer nivel 
+    sonido_1 = pygame.mixer.music.play(1)
 
     player1=Player() # Instanciamos un objeto de clase  Player
     
