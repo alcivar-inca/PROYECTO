@@ -4,7 +4,7 @@ ancho=1000
 alto=600
 
 
-#   CLASES PARA PANTALLA DE INIO 
+#   CLASES PARA PANTALLA DE INICIO /////////////////////////////////////////////////////////////////
 
 #   Clase para graficar un rectangulo que sigue al cursor
 class Cursor(pygame.Rect):
@@ -15,7 +15,7 @@ class Cursor(pygame.Rect):
         self.left,self.top=pygame.mouse.get_pos()
 
         
-#   Clase para crear un sprite de la imagen inicioa juego
+#   Clase para crear un sprite de la imagen inicio del juego
 class Boton (pygame.sprite.Sprite):
     def __init__(self, imagen, x=200, y=200): #    Constructor
         self.boton_Normal= imagen
@@ -36,7 +36,7 @@ class Boton (pygame.sprite.Sprite):
 
 
 
-#   Clases para el nivel 1
+#   Clases para el nivel 1 ////////////////////////////////////////////////////////////////////////////
 
 #   Clase para la creacion del fondo del juego
 class Fondo(pygame.sprite.Sprite):
@@ -81,7 +81,7 @@ class Player(pygame.sprite.Sprite):
 
        
     #   Funcion para actualizar la posicion del jugador
-    def actualizar(self,superficie,vx,vy,t, x, y):  
+    def actualizar(self,superficie,vx,vy,t):  
         
         # si el jugador no se mueve self.estamoviendo=FALSE
         if (vx,vy)==(0,0): self.estamoviendo=False
@@ -96,8 +96,7 @@ class Player(pygame.sprite.Sprite):
             self.siguiente_Imagen()
             
         # mover el rectangulo    
-        if (x<900 and x>0)and (y>420 and y<600):
-            self.mover(vx, vy)
+        self.mover(vx, vy)
         
         #self.imagen va ser la imagen que este en la orientacion y en el numero de imagen_actual
         self.imagen=self.imagenes[self.orientacion][self.imagen_actual]
@@ -114,15 +113,15 @@ class Player(pygame.sprite.Sprite):
             self.imagen_actual=0          
 
 
-#   Funcion que continee el primer nivel
+
+#   Funcion que continee el primer nivel ////////////////////////////////////////////////////////////////////////////
 def Nivel_1():
     pantalla=pygame.display.set_mode((ancho,alto))
     fondo=Fondo()
-    salir=False
-    reloj2= pygame.time.Clock()
-    movimiento_X, movimiento_Y =0,0
-    velocidad_X =5
-    velocidad_Y=20
+    reloj= pygame.time.Clock()
+    movimiento_X, movimiento_Y = 0,0
+    velocidad_X=5
+    velocidad_Y=10
     limite_Pantalla_X=0
     limite_Jugador_X=10
     limite_Jugador_Y=420
@@ -139,7 +138,8 @@ def Nivel_1():
     #auxiliares para el movimiento
     izq_apretada,der_apretada,arriba_apretada,abajo_apretada=False,False,False,False
     t=0
-    
+
+    salir=False
     while salir!=True:#BUCLE  PRINCIPAL
         #control de eventos
         for evento in pygame.event.get():
@@ -192,7 +192,7 @@ def Nivel_1():
                         pantalla.blit(bala1, [i, Y+22])'''
                     
                          
-        reloj2.tick(25)# 25 fps
+        reloj.tick(25)# 25 fps
         segundos=pygame.time.get_ticks()/1000 # Variable de segundos
         contador=fuente.render(str(segundos), True, (255,255,255)) #  String que contiene los segundos
         
@@ -209,7 +209,7 @@ def Nivel_1():
         pantalla.blit(texto_Nivel, (10, 10))
         pantalla.blit(contador, (920,10))
         # actualizar jugador
-        player1.actualizar(pantalla,movimiento_X,movimiento_Y,t, limite_Jugador_X, limite_Jugador_Y)
+        player1.actualizar(pantalla,movimiento_X,movimiento_Y,t)
         #actualizar pantalla
         pygame.display.update()
 
@@ -218,7 +218,7 @@ def Nivel_1():
 
 
 
-#   Clase principal que contiene el inicio del juego
+#   Clase que contiene el menu del juego /////////////////////////////////////////////////////////////////////////////
 def menu():
     pantalla = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("EPN ADVENTURE")
