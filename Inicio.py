@@ -1,6 +1,6 @@
 import pygame
 pygame.init()
-ancho=1000
+ancho=900
 alto=600
 
 
@@ -116,7 +116,7 @@ class Player(pygame.sprite.Sprite):
 
 #   Funcion que continee el primer nivel ////////////////////////////////////////////////////////////////////////////
 def Nivel_1():
-    pantalla=pygame.display.set_mode((ancho,alto))
+    pantalla=pygame.display.set_mode((1000,600))
     fondo=Fondo()
     reloj= pygame.time.Clock()
     movimiento_X, movimiento_Y = 0,0
@@ -220,12 +220,12 @@ def Nivel_1():
 
 #   Clase que contiene el menu del juego /////////////////////////////////////////////////////////////////////////////
 def menu():
-    pantalla = pygame.display.set_mode((ancho, alto))
+    pantalla = pygame.display.set_mode((ancho,alto))
     pygame.display.set_caption("EPN ADVENTURE")
     reloj=pygame.time.Clock()
     fondo_inicio = pygame.image.load("fondo_inicio.jpg")
     boton_Iniciar=pygame.image.load("jugar.png")
-    boton1=Boton(boton_Iniciar, 400, 200)
+    boton1=Boton(boton_Iniciar, 350, 200)
     cursor1= Cursor()
 
     sonido_1 = pygame.mixer.music.load("musica_Inicio.mp3") #sonido de fondo de juego primer nivel 
