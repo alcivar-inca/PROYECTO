@@ -1,10 +1,10 @@
 import pygame
 pygame.init()
+ancho=1000
+alto=600
 
-ancho = 1000
-alto = 600
 
-#   CLASES PARA PANTALLA DE INIO
+#   CLASES PARA PANTALLA DE INIO 
 
 #   Clase para graficar un rectangulo que sigue al cursor
 class Cursor(pygame.Rect):
@@ -114,15 +114,12 @@ class Player(pygame.sprite.Sprite):
             self.imagen_actual=0          
 
 
-#   Clase que continee el primer nivel
+#   Funcion que continee el primer nivel
 def Nivel_1():
-    import pygame
-    
-    pygame.init()
-    pantalla=pygame.display.set_mode((1000,600))
+    pantalla=pygame.display.set_mode((ancho,alto))
     fondo=Fondo()
     salir=False
-    reloj= pygame.time.Clock()
+    reloj2= pygame.time.Clock()
     movimiento_X, movimiento_Y =0,0
     velocidad_X =5
     velocidad_Y=20
@@ -131,6 +128,11 @@ def Nivel_1():
     limite_Jugador_Y=420
     sonido_1 = pygame.mixer.music.load("inicio_juego.mp3") #sonido de fondo de juego primer nivel 
     sonido_1 = pygame.mixer.music.play(1)
+
+    fuente = pygame.font.SysFont("arial", 20, True) # Fuente para los textos en pantalla
+    texto_Puntaje=fuente.render("Puntaje: ", True, (255,255,255)) # Texto para puntaje
+    texto_Tiempo=fuente.render("Tiempo: ", True, (255,255,255)) # Texto tiempo
+    texto_Nivel=fuente.render("Nivel 1", True, (255,255,255)) #   Texto nivel
 
     player1=Player() # Instanciamos un objeto de clase  Player
     
@@ -190,7 +192,9 @@ def Nivel_1():
                         pantalla.blit(bala1, [i, Y+22])'''
                     
                          
-        reloj.tick(25)# 25 fps
+        reloj2.tick(25)# 25 fps
+        segundos=pygame.time.get_ticks()/1000 # Variable de segundos
+        contador=fuente.render(str(segundos), True, (255,255,255)) #  String que contiene los segundos
         
         #auxiliar de la animacion
         t+=1
@@ -200,9 +204,12 @@ def Nivel_1():
         pantalla.fill((0,0,0))
         #   Actualizar fondo
         fondo.actualizar(pantalla, movimiento_X)
+        pantalla.blit(texto_Puntaje, (10, 30))
+        pantalla.blit(texto_Tiempo, (850, 10))
+        pantalla.blit(texto_Nivel, (10, 10))
+        pantalla.blit(contador, (920,10))
         # actualizar jugador
         player1.actualizar(pantalla,movimiento_X,movimiento_Y,t, limite_Jugador_X, limite_Jugador_Y)
-        print (limite_Jugador_X , limite_Jugador_Y)
         #actualizar pantalla
         pygame.display.update()
 
@@ -212,8 +219,7 @@ def Nivel_1():
 
 
 #   Clase principal que contiene el inicio del juego
-def main():
-    pygame.init()
+def menu():
     pantalla = pygame.display.set_mode((ancho, alto))
     pygame.display.set_caption("EPN ADVENTURE")
     reloj=pygame.time.Clock()
@@ -238,7 +244,7 @@ def main():
 
 
         reloj.tick(20)
-        #   pantalla.fill((0,0,0))
+        pantalla.fill((0,0,0))
         pantalla.blit(fondo_inicio, (0, 0))
         cursor1.actualizar()
         boton1.actualizar(pantalla,cursor1)
@@ -247,5 +253,5 @@ def main():
 
 
 
-main()
+menu()
 
